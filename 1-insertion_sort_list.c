@@ -7,13 +7,12 @@
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *tmp, *tmp2, *tmp3;
+	listint_t *tmp, *tmp2, *tmp3, *tmp4;
 	if (!list)
 		return;
 
 	tmp = *list;
 	tmp2 = *list;
-	tmp3 = *list;
 
 	if ((*list)->n > (*list)->next->n)
 	{
@@ -26,19 +25,23 @@ void insertion_sort_list(listint_t **list)
 		print_list(*list);
 	}
 
+	tmp3 = (*list)->next->next;
+	tmp2 = *list;
 	//while(tmp3->next)
 	//{
-	//	tmp = tmp3;
-	//	if(tmp->n > tmp->next->n)
-	//	{
-	//		tmp2->next = tmp->next;
-	//		tmp2->prev = tmp->next->prev;
-	//		tmp->next = tmp->next->next;
-	//		tmp->prev = tmp->next;
-	//		tmp2->next = tmp;
-	//	}
-		//print_list(*list);
-		//tmp3 = tmp3->next;
-	}
-//}
+		if (tmp3->n < tmp3->prev->n)
+		{
+			tmp2 = tmp3->prev;
+			tmp3->prev->prev->next = tmp3;
+			tmp3->next->prev = tmp2;
+			tmp2->next = tmp3->next;
+			tmp3->next = tmp2;
+			tmp3->prev = tmp2->prev;
+			tmp2->prev = tmp3;
+		}
+		print_list(*list);
+		tmp3 = tmp3->next;
+		//tmp3 = tmp4;
+	//}
+}
 
