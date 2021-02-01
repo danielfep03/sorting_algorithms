@@ -15,31 +15,30 @@ void insertion_sort_list(listint_t **list)
 	tmp2 = *list;
 	tmp3 = *list;
 
-	if (tmp->n > tmp->next->n)
+	if ((*list)->n > (*list)->next->n)
 	{
-		tmp->next->prev = tmp->prev;
-		tmp->prev = tmp->next;
-		tmp->next = tmp->next->next;
+		tmp2 = (*list)->next;
+		tmp2->prev = NULL;
+		tmp->next = tmp2->next;
+		tmp2->next = tmp;
+		(*list)->prev = tmp2;
+		(*list) = tmp2;
+		print_list(*list);
 	}
 
-	while(tmp3->next)
-	{
-		tmp = tmp3;
-		if(tmp->n > tmp->next->n)
-		{
-			//tmp2 = tmp->next;
-			//tmp->next = tmp->next->next;
-			//tmp->next->prev = tmp->prev;
-			//tmp->next->next = tmp;
-			//tmp->prev = tmp2;
-			tmp2->next = tmp->next;
-			tmp2->prev = tmp->next->prev;
-			tmp->next = tmp->next->next;
-			tmp->prev = tmp->next;
-			tmp2->next = tmp;
-		}
-		print_list(*list);
-		tmp3 = tmp3->next;
+	//while(tmp3->next)
+	//{
+	//	tmp = tmp3;
+	//	if(tmp->n > tmp->next->n)
+	//	{
+	//		tmp2->next = tmp->next;
+	//		tmp2->prev = tmp->next->prev;
+	//		tmp->next = tmp->next->next;
+	//		tmp->prev = tmp->next;
+	//		tmp2->next = tmp;
+	//	}
+		//print_list(*list);
+		//tmp3 = tmp3->next;
 	}
-}
+//}
 
