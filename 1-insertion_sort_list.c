@@ -48,19 +48,20 @@ void insertion_sort_list(listint_t **list)
 
 	while(tmp3->next)
 	{
-		ant = tmp3->prev;
-		while(tmp3->n < ant->n)
+		ant = tmp3;
+		while(tmp3->n < ant->prev->n)
 		{
-			printf("AQUI PASO\n");
+			printf("\n%d\n", ant->n);
 			if (ant->prev)
 				ant = ant->prev;
 			else
 				break;
 		}
 		printf("Antes del while\n");
+		ant = ant->prev;
 		if(tmp3->n < ant->next->n)
 		{
-			printf("ANT EN PREV %d\n",ant->n);
+			printf("ANT EN PREV %d\n",ant->next->n);
 			tmp2 = ant->prev;
 			printf(" sldkfnas %d\n", ant->n);
 			ant->prev->next = tmp3;
