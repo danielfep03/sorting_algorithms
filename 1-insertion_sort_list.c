@@ -1,5 +1,6 @@
 #include "sort.h"
 
+
 /**
  * insert_nodeint_at_index - Inserts a new node at a given position
  * @idx: Position
@@ -8,11 +9,49 @@
  * Return:New node
  */
 
-void change_node_position(listint_t **head, unsigned int idx, unsigned int idx2)
+void swap(listint_t **head, unsigned int idx, unsigned int idx2)
 {
+	listint_t *list, *store1, *store2, *ant_store1, *ant_store2;
+	listint_t *next_store1, *next_store2;
+	int num = 0;
 
+	store1 = *head;
+	store2 = *head;
+	num = idx - 1;
+	while(num != 0)
+	{
+		store1 = store1->next;
+		num--;
+	}
+	num = idx2 - 1;
+	while(num != 0)
+	{
+		store2 = store2->next;
+		num--;
+	}
+
+	ant_store1 = store1->prev;
+	next_store1 = store1->next;
+	ant_store2 = store2->prev;
+	next_store2 = store2->next;
+	ant_store1->next = store2;
+	ant_store2->next = next_store2;
+	next_store1->prev = ant_store1;
+	if (next_store2)
+		next_store2->prev = ant_store2;
+	if (next_store1 == store2)
+	{
+		store2->next = store1;
+		store1->prev = store2;
+	}
+	else
+	{
+		store2->prev = ant_store1;
+		store2->next = store1;
+		store2->prev = ant_store1;
+		store1->prev = store2;
+	}
 }
-
 
 
 /**
@@ -22,85 +61,32 @@ void change_node_position(listint_t **head, unsigned int idx, unsigned int idx2)
 
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *tmp, *tmp2, *tmp3, *ant;
-	int idx = 0, idx2 = 0, count = 0;
+	listint_t *tmp, *tmp2, *ant;
+	int count = 0, idx = 2, index = 0;
 
-	if (!list)
+	if(!list)
 		return;
 
-	tmp = *list;
-	tmp2 = *list;
-
-	if ((*list)->n > (*list)->next->n)
+	tmp = (*list)->next;
+	while(tmp)
 	{
-		tmp2 = (*list)->next;
-		tmp2->next->prev = tmp;
-		tmp2->prev = NULL;
-		tmp->next = tmp2->next;
-		tmp2->next = tmp;
-		(*list)->prev = tmp2;
-		(*list) = tmp2;
-		print_list(*list);
-	}
-
-	tmp3 = (*list)->next->next;
-	tmp2 = *list;
-
-	while(tmp3->next)
-	{
-		ant = tmp3;
-		while(tmp3->n < ant->prev->n)
+		tmp2 = tmp;
+		ant = tmp;
+		count = 0;
+		
+		while(tmp2->n < ant->prev->n)
 		{
-			printf("\n%d\n", ant->n);
-			if (ant->prev)
-				ant = ant->prev;
-			else
-				break;
+			ant = ant->prev;
+			count++;
 		}
-		printf("Antes del while\n");
-		ant = ant->prev;
-		if(tmp3->n < ant->next->n)
+		if (count >= 1)
 		{
-			printf("ANT EN PREV %d\n",ant->next->n);
-			tmp2 = ant->prev;
-			printf(" sldkfnas %d\n", ant->n);
-			ant->prev->next = tmp3;
-			tmp3->next->prev = ant;
-			if (ant->next == tmp3)
-			{
-				ant->next = tmp3->next;
-				tmp3->next = ant;
-				ant->prev = tmp3;
-				tmp3->prev = tmp2;
-			}
-			else
-			{
-				ant->next->prev = tmp3;
-				tmp3->next->prev = ant;
-				if(ant->next->next == tmp3)
-				{
-					ant->next->prev = tmp3;
-					ant->next->next = ant;
-				}
-				ant->next = tmp3->next;
-				tmp3->next = ant->next;
-				tmp3->prev = ant->prev;
-				ant->prev = tmp3->next;
-			}
-
+			index = idx - count;
+			swap(list, index, idx);
+			print_list(*list);
+			tmp = tmp->next;
 		}
-		print_list(*list);
-		tmp3 = tmp3->next;
+		tmp = tmp->next;
 		idx++;
 	}
-	if (tmp3->n < tmp3->prev->n)
-	{
-		tmp2 = tmp3->prev;
-		tmp3->prev->prev->next = tmp3;
-		tmp2->next = tmp3->next;
-		tmp3->next = tmp2;
-		tmp3->prev = tmp2->prev;
-		tmp2->prev = tmp3;
-	}
 }
-
