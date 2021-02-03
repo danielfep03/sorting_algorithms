@@ -46,19 +46,6 @@ void insertion_sort_list(listint_t **list)
 		{
 			swap(&tmp2, &(*list));
 			print_list(*list);
-<<<<<<< HEAD
-=======
-			tmp2 = tmp;
-			printf("==============\nTMP2 = %d, PREV %d, NEXT %d\n==============\n", tmp2->n, tmp2->prev->n, tmp2->next->n);
-			while(tmp2->n < tmp2->prev->n)
-			{
-				swap(&tmp2);
-				tmp2 = tmp->prev;
-				print_list(*list);
-				printf("\n%d\n", tmp2->n);
-				printf("====WHILE====\nTMP2 = %d, PREV %d, NEXT %d\n==============\n", tmp2->n, tmp2->prev->n, tmp2->next->n);
-			}
->>>>>>> b3743613b20b0909f76583779fd886c2e32833bd
 		}
 		tmp = tmp->next;
 	}
