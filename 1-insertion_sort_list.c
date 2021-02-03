@@ -12,7 +12,6 @@ void swap(listint_t **tmp, listint_t **list)
 	listint_t *aux;
 
 	aux = (*tmp)->prev->prev;
-	printf("\n\n AUXILIAR: %d\n\n", aux->n);
 	if ((*tmp)->prev->prev)
 		(*tmp)->prev->prev->next = *tmp;
 	if ((*tmp)->next)
