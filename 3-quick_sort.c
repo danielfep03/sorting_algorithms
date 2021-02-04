@@ -2,7 +2,6 @@
 /**
  * quick_sort - quick sort function
  * @array: array
-
  * @size: size of the array
  * Return: void
  */
